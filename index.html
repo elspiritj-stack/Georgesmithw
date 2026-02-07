@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Wallet</title>
+<title>Trust Investment Wallet</title>
 
 <style>
 body{
@@ -107,18 +107,18 @@ button{
     </div>
   </div>
 
-  <button onclick="go('withdraw')">Withdraw to cash app</button>
+  <button onclick="go('withdraw')">Withdraw to Cash App</button>
 
   <div class="card">
     <strong>Recent Transactions</strong>
     <div id="txList">
-      <div class="green"><span class="green">$60,000 reversal</span></div>
-      <div class="tx"><span class="red">-$140 CREDIT</span></div>
+      <div class="tx green">$60,000 reversal</div>
+      <div class="tx red">-$140 CREDIT</div>
     </div>
   </div>
 </div>
 
-<!-- WITHDRAW FORM -->
+<!-- WITHDRAW -->
 <div class="container hidden" id="withdraw">
   <h2>Withdraw Funds</h2>
 
@@ -138,66 +138,54 @@ button{
   <p class="small" style="text-align:center">Confirming withdrawal…</p>
 </div>
 
-<!-- PENDING -->
-<div class="container hidden" id="success">
-  <h2>Withdrawal pending. $130,000 sent to Cash app kindly top your gas with $1870.60 to complete your transfer 
-.</h2>
+<!-- FAILED -->
+<div class="container hidden" id="failed">
+  <h2 class="red">Transaction Failed</h2>
+  <p class="small">Insufficient gas fee to complete transaction</p>
 
   <div class="card">
-    <p><strong>Account Name:</strong> <span id="sName"></span></p>
-    <p><strong>cash app tag:</strong> <span id="cash app tag"></span></p>
-    <p><strong>phone number:</strong> <span id="sBank"></span></p>
-    <p><strong>Amount:</strong> <span id="sAmount"></span></p>
-    <p class="small">Gas fee applied</p>
+    <p><strong>Account Name:</strong> <span id="fName"></span></p>
+    <p><strong>Account Number:</strong> <span id="fNumber"></span></p>
+    <p><strong>Bank:</strong> <span id="fBank"></span></p>
+    <p><strong>Amount:</strong> <span id="fAmount"></span></p>
+    <p class="red small">Required Gas Fee: $1,870.60</p>
   </div>
 
-  <button onclick="finishWithdraw()">Done</button>
+  <button onclick="go('dashboard')">Back to Home</button>
 </div>
 
 <script>
-let withdrawData={};
+let withdrawData = {};
 
 function go(id){
   document.querySelectorAll('.container')
-    .forEach(c=>c.classList.add('hidden'));
+    .forEach(c => c.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
 }
 
 function submitWithdraw(){
-  withdrawData={
-    name:wName.value,
-    number:wNumber.value,
-    bank:wBank.value,
-    amount:wAmount.value
+  withdrawData = {
+    name: wName.value,
+    number: wNumber.value,
+    bank: wBank.value,
+    amount: wAmount.value
   };
 
-  if(!withdrawData.name||!withdrawData.number||!withdrawData.bank||!withdrawData.amount){
+  if(!withdrawData.name || !withdrawData.number || !withdrawData.bank || !withdrawData.amount){
     alert("Fill all fields");
     return;
   }
 
   go('processing');
 
-  setTimeout(()=>{
-    sName.innerText=withdrawData.name;
-    sNumber.innerText=withdrawData.number;
-    sBank.innerText=withdrawData.bank;
-    sAmount.innerText='$'+withdrawData.amount;
+  setTimeout(() => {
+    fName.innerText   = withdrawData.name;
+    fNumber.innerText = withdrawData.number;
+    fBank.innerText   = withdrawData.bank;
+    fAmount.innerText = '$' + withdrawData.amount;
 
-    go('success');
-  },3000);
-}
-
-function finishWithdraw(){
-  mainBal.innerText='$0.00';
-  gasBal.innerText='0.03';
-
-  const tx=document.createElement('div');
-  tx.className='tx';
-  tx.innerHTML='<span class="red">-$'+withdrawData.amount+' Withdrawal</span>';
-  document.getElementById('txList').appendChild(tx);
-
-  go('dashboard');
+    go('failed');
+  }, 3000);
 }
 </script>
 
