@@ -73,7 +73,9 @@ button{
   animation:spin 1s linear infinite;
 }
 
-@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
 
 .tx{
   padding:10px 0;
@@ -87,9 +89,9 @@ button{
 <!-- LOGIN -->
 <div class="container" id="login">
   <h2>Trust Investment Wallet</h2>
-  <input placeholder="Email">
-  <input type="password" placeholder="Password">
-  <button onclick="go('dashboard')">Login</button>
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button id="loginBtn">Login</button>
 </div>
 
 <!-- DASHBOARD -->
@@ -99,22 +101,21 @@ button{
   <div class="card">
     <div class="row">
       <span>Main Balance</span>
-      <span id="mainBal" class="green">$130,000 USD</span>
+      <span class="green">$130,000 USD</span>
     </div>
     <div class="row">
       <span>Gas Balance</span>
-      <span id="gasBal" class="red">$2,1029.78</span>
+      <span class="red">$2,029.78</span>
     </div>
   </div>
 
-  <button onclick="go('withdraw')">Withdraw to Cash App</button>
+  <button id="withdrawBtn">Withdraw to Cash App</button>
 
   <div class="card">
     <strong>Recent Transactions</strong>
-    <div id="txList">
-      <div class="tx green">$100 credit.
-     <div class="tx green">$271 credit.
-      </div>
+    <div>
+      <div class="tx green">$100 credit.</div>
+      <div class="tx green">$271 credit.</div>
       <div class="tx green">-$1500 CREDIT</div>
     </div>
   </div>
@@ -127,10 +128,10 @@ button{
   <input id="wName" placeholder="Account Name">
   <input id="wNumber" placeholder="Account Number">
   <input id="wBank" placeholder="Bank Name">
-  <input id="wAmount" placeholder="Amount">
+  <input id="wAmount" type="number" placeholder="Amount">
 
-  <button onclick="submitWithdraw()">Send</button>
-  <button onclick="go('dashboard')">Cancel</button>
+  <button id="sendBtn">Send</button>
+  <button id="cancelBtn">Cancel</button>
 </div>
 
 <!-- PROCESSING -->
@@ -153,42 +154,57 @@ button{
     <p class="red small">Required Gas Fee: $440.60</p>
   </div>
 
-  <button onclick="go('dashboard')">Back to Home</button>
+  <button id="homeBtn">Back to Home</button>
 </div>
 
 <script>
-let withdrawData = {};
 
-function go(id){
+function show(id){
   document.querySelectorAll('.container')
     .forEach(c => c.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
 }
 
-function submitWithdraw(){
-  withdrawData = {
-    name: wName.value,
-    number: wNumber.value,
-    bank: wBank.value,
-    amount: wAmount.value
-  };
+document.getElementById('loginBtn').addEventListener('click', function(){
+  show('dashboard');
+});
 
-  if(!withdrawData.name || !withdrawData.number || !withdrawData.bank || !withdrawData.amount){
+document.getElementById('withdrawBtn').addEventListener('click', function(){
+  show('withdraw');
+});
+
+document.getElementById('cancelBtn').addEventListener('click', function(){
+  show('dashboard');
+});
+
+document.getElementById('homeBtn').addEventListener('click', function(){
+  show('dashboard');
+});
+
+document.getElementById('sendBtn').addEventListener('click', function(){
+
+  const name   = document.getElementById('wName').value;
+  const number = document.getElementById('wNumber').value;
+  const bank   = document.getElementById('wBank').value;
+  const amount = document.getElementById('wAmount').value;
+
+  if(!name || !number || !bank || !amount){
     alert("Fill all fields");
     return;
   }
 
-  go('processing');
+  show('processing');
 
-  setTimeout(() => {
-    fName.innerText   = withdrawData.name;
-    fNumber.innerText = withdrawData.number;
-    fBank.innerText   = withdrawData.bank;
-    fAmount.innerText = '$' + withdrawData.amount;
-
-    go('failed');
+  setTimeout(function(){
+    document.getElementById('fName').innerText   = name;
+    document.getElementById('fNumber').innerText = number;
+    document.getElementById('fBank').innerText   = bank;
+    document.getElementById('fAmount').innerText = "$" + amount;
+    show('failed');
   }, 3000);
-}
+
+});
+
 </script>
 
 </body>
