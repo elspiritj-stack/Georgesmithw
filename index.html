@@ -63,6 +63,12 @@ button{
   cursor:pointer;
 }
 
+.secondary-btn{
+  background:#2563eb;
+  font-size:13px;
+  padding:8px;
+}
+
 .spinner{
   width:36px;
   height:36px;
@@ -81,6 +87,39 @@ button{
   padding:10px 0;
   border-bottom:1px solid #333;
 }
+
+/* FEES TABLE */
+.table{
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:12px;
+  overflow:hidden;
+  margin-top:20px;
+}
+
+.table-row{
+  display:flex;
+  justify-content:space-between;
+  padding:15px;
+  border-bottom:1px solid #333;
+}
+
+.table-row:last-child{border-bottom:none}
+
+.table-header{
+  background:#111827;
+  font-weight:bold;
+}
+
+.highlight{
+  background:#1e3a8a;
+}
+
+.blockchain{
+  text-align:center;
+  margin-top:20px;
+  color:#22c55e;
+  font-weight:bold;
+}
 </style>
 </head>
 
@@ -91,7 +130,7 @@ button{
   <h2>Trust Investment Wallet</h2>
   <input id="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
-  <button id="loginBtn">Login</button>
+  <button onclick="show('dashboard')">Login</button>
 </div>
 
 <!-- DASHBOARD -->
@@ -109,7 +148,12 @@ button{
     </div>
   </div>
 
-  <button id="withdrawBtn">Withdraw to Cash App</button>
+  <button onclick="show('withdraw')">Withdraw to Cash App</button>
+
+  <!-- NEW SMALL GAS BUTTON -->
+  <button class="secondary-btn" onclick="show('fees')">
+    View Gas & Withdrawal Fees
+  </button>
 
   <div class="card">
     <strong>Recent Transactions</strong>
@@ -121,6 +165,45 @@ button{
   </div>
 </div>
 
+<!-- FEES PAGE -->
+<div class="container hidden" id="fees">
+  <h2>Gas & Withdrawal Fees</h2>
+
+  <div class="table">
+    <div class="table-row table-header">
+      <div>Gas Fees</div>
+      <div>Withdrawal</div>
+    </div>
+
+    <div class="table-row">
+      <div>$5,000</div>
+      <div>$10,000</div>
+    </div>
+
+    <div class="table-row highlight">
+      <div>$3,000</div>
+      <div>$50,000</div>
+    </div>
+
+    <div class="table-row">
+      <div>$2,000</div>
+      <div>$100,000 - $1,000,000</div>
+    </div>
+  </div>
+
+  <div class="blockchain">
+    Daily Blockchain Ratio:$40.60
+    
+    kindly make a mininum deposit of $80
+    to cancel maintainance toll daily.
+    
+  </div>
+
+  <button onclick="show('dashboard')">
+    Proceed to Withdraw
+  </button>
+</div>
+
 <!-- WITHDRAW -->
 <div class="container hidden" id="withdraw">
   <h2>Withdraw Funds</h2>
@@ -130,8 +213,8 @@ button{
   <input id="wBank" placeholder="Bank Name">
   <input id="wAmount" type="number" placeholder="Amount">
 
-  <button id="sendBtn">Send</button>
-  <button id="cancelBtn">Cancel</button>
+  <button onclick="processWithdraw()">Send</button>
+  <button onclick="show('dashboard')">Cancel</button>
 </div>
 
 <!-- PROCESSING -->
@@ -154,7 +237,7 @@ button{
     <p class="red small">Required Gas Fee: $440.60</p>
   </div>
 
-  <button id="homeBtn">Back to Home</button>
+  <button onclick="show('dashboard')">Back to Home</button>
 </div>
 
 <script>
@@ -165,23 +248,7 @@ function show(id){
   document.getElementById(id).classList.remove('hidden');
 }
 
-document.getElementById('loginBtn').addEventListener('click', function(){
-  show('dashboard');
-});
-
-document.getElementById('withdrawBtn').addEventListener('click', function(){
-  show('withdraw');
-});
-
-document.getElementById('cancelBtn').addEventListener('click', function(){
-  show('dashboard');
-});
-
-document.getElementById('homeBtn').addEventListener('click', function(){
-  show('dashboard');
-});
-
-document.getElementById('sendBtn').addEventListener('click', function(){
+function processWithdraw(){
 
   const name   = document.getElementById('wName').value;
   const number = document.getElementById('wNumber').value;
@@ -203,7 +270,7 @@ document.getElementById('sendBtn').addEventListener('click', function(){
     show('failed');
   }, 3000);
 
-});
+}
 
 </script>
 
