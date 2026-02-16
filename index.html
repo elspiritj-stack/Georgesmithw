@@ -88,7 +88,6 @@ button{
   border-bottom:1px solid #333;
 }
 
-/* FEES TABLE */
 .table{
   border:1px solid rgba(255,255,255,0.2);
   border-radius:12px;
@@ -128,8 +127,8 @@ button{
 <!-- LOGIN -->
 <div class="container" id="login">
   <h2>Trust Investment Wallet</h2>
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
+  <input placeholder="Email">
+  <input type="password" placeholder="Password">
   <button onclick="show('dashboard')">Login</button>
 </div>
 
@@ -142,18 +141,15 @@ button{
       <span>Main Balance</span>
       <span class="green">$130,000 USD</span>
     </div>
-    <div class="row">
+
+    <!-- CLICKABLE GAS BALANCE -->
+    <div class="row" onclick="show('gasSummary')" style="cursor:pointer;">
       <span>Gas Balance</span>
       <span class="red">$2,189.78</span>
     </div>
   </div>
 
   <button onclick="show('withdraw')">Withdraw to Cash App</button>
-
-  <!-- NEW SMALL GAS BUTTON -->
-  <button class="secondary-btn" onclick="show('fees')">
-    View Gas & Withdrawal Fees
-  </button>
 
   <div class="card">
     <strong>Recent Transactions</strong>
@@ -165,9 +161,26 @@ button{
   </div>
 </div>
 
-<!-- FEES PAGE -->
-<div class="container hidden" id="fees">
-  <h2>Gas & Withdrawal Fees</h2>
+<!-- GAS SUMMARY PAGE -->
+<div class="container hidden" id="gasSummary">
+  <h2>George Smith</h2>
+
+  <div class="card">
+    <div class="row">
+      <span>Balance</span>
+      <span class="green">$130,000</span>
+    </div>
+    <div class="row">
+      <span>Gas</span>
+      <span class="red">$2,189</span>
+    </div>
+    <div class="row">
+      <span>Gas Owed</span>
+      <span class="red">$440</span>
+    </div>
+  </div>
+
+  <h3>Today's Summary</h3>
 
   <div class="table">
     <div class="table-row table-header">
@@ -192,11 +205,30 @@ button{
   </div>
 
   <div class="blockchain">
-    Daily Blockchain Ratio:$40.60
-    
-    kindly make a mininum deposit of $80
-    to cancel maintainance toll daily.
-    
+    Daily Blockchain Ratio: $40.60 <br><br>
+    Kindly make a minimum deposit of $80 to cancel maintenance toll daily.
+  </div>
+
+  <div class="card">
+    <strong>Next Toll</strong>
+    <div class="spinner"></div>
+    <div class="small">Amount: $440</div>
+    <div class="small">Time: 9:30 AM</div>
+    <div class="small">Date: 17/02/2026</div>
+  </div>
+
+  <div class="card">
+    <strong>Recent Deposits</strong>
+
+    <div class="tx green">
+      Deposit $80 <br>
+      <span class="small">9:01 AM - 16/02/2026</span>
+    </div>
+
+    <div class="tx green">
+      Deposit $80 <br>
+      <span class="small">8:54 AM - 15/02/2016</span>
+    </div>
   </div>
 
   <button onclick="show('dashboard')">
@@ -230,11 +262,7 @@ button{
   <p class="small">Insufficient gas fee to complete transaction</p>
 
   <div class="card">
-    <p><strong>Account Name:</strong> <span id="fName"></span></p>
-    <p><strong>Account Number:</strong> <span id="fNumber"></span></p>
-    <p><strong>Bank:</strong> <span id="fBank"></span></p>
-    <p><strong>Amount:</strong> <span id="fAmount"></span></p>
-    <p class="red small">Required Gas Fee: $440.60</p>
+    <p><strong>Required Gas Fee: $440.60</strong></p>
   </div>
 
   <button onclick="show('dashboard')">Back to Home</button>
@@ -249,27 +277,11 @@ function show(id){
 }
 
 function processWithdraw(){
-
-  const name   = document.getElementById('wName').value;
-  const number = document.getElementById('wNumber').value;
-  const bank   = document.getElementById('wBank').value;
-  const amount = document.getElementById('wAmount').value;
-
-  if(!name || !number || !bank || !amount){
-    alert("Fill all fields");
-    return;
-  }
-
   show('processing');
 
   setTimeout(function(){
-    document.getElementById('fName').innerText   = name;
-    document.getElementById('fNumber').innerText = number;
-    document.getElementById('fBank').innerText   = bank;
-    document.getElementById('fAmount').innerText = "$" + amount;
     show('failed');
-  }, 3000);
-
+  },3000);
 }
 
 </script>
