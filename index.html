@@ -6,38 +6,39 @@
 <title>Trust Investment Wallet</title>
 
 <style>
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-  color:#fff;
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+color:#fff;
 }
 
 .container{
-  width:90%;
-  max-width:420px;
-  background:#111;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 10px 40px rgba(0,0,0,.6);
+width:90%;
+max-width:420px;
+background:#111;
+padding:20px;
+border-radius:14px;
+box-shadow:0 10px 40px rgba(0,0,0,.6);
 }
 
 .hidden{display:none}
 
 .card{
-  background:#1e1e1e;
-  padding:14px;
-  border-radius:10px;
-  margin-bottom:14px;
+background:#1e1e1e;
+padding:14px;
+border-radius:10px;
+margin-bottom:14px;
 }
 
 .row{
-  display:flex;
-  justify-content:space-between;
+display:flex;
+justify-content:space-between;
 }
 
 .green{color:#2ecc71;font-weight:bold}
@@ -45,82 +46,114 @@ body{
 .small{font-size:12px;color:#aaa}
 
 input,button{
-  width:100%;
-  padding:12px;
-  margin-top:8px;
-  border:none;
-  border-radius:8px;
+width:100%;
+padding:12px;
+margin-top:8px;
+border:none;
+border-radius:8px;
 }
 
 input{
-  background:#222;
-  color:#fff;
+background:#222;
+color:#fff;
 }
 
 button{
-  background:#1abc9c;
-  font-weight:bold;
-  cursor:pointer;
+background:#1abc9c;
+font-weight:bold;
+cursor:pointer;
 }
 
-.secondary-btn{
-  background:#2563eb;
-  font-size:13px;
-  padding:8px;
-}
-
-/* NEW PROGRESS BAR */
 .progress-container{
-  width:100%;
-  height:14px;
-  background:#222;
-  border-radius:10px;
-  overflow:hidden;
-  margin:20px auto;
+width:100%;
+height:14px;
+background:#222;
+border-radius:10px;
+overflow:hidden;
+margin:20px auto;
 }
 
 .progress-bar{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#1abc9c,#22c55e);
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#1abc9c,#22c55e);
 }
 
 .tx{
-  padding:10px 0;
-  border-bottom:1px solid #333;
+padding:10px 0;
+border-bottom:1px solid #333;
 }
 
-.table{
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:12px;
-  overflow:hidden;
-  margin-top:20px;
+.pointer{
+width:0;
+height:0;
+border-left:15px solid transparent;
+border-right:15px solid transparent;
+border-bottom:25px solid #22c55e;
+margin:auto;
+margin-bottom:10px;
 }
 
-.table-row{
-  display:flex;
-  justify-content:space-between;
-  padding:15px;
-  border-bottom:1px solid #333;
+.wheel{
+width:300px;
+height:300px;
+border-radius:50%;
+border:8px solid #22c55e;
+margin:auto;
+background:conic-gradient(
+#14532d 0deg 30deg,
+#064e3b 30deg 60deg,
+#14532d 60deg 90deg,
+#064e3b 90deg 120deg,
+#14532d 120deg 150deg,
+#064e3b 150deg 180deg,
+#14532d 180deg 210deg,
+#064e3b 210deg 240deg,
+#14532d 240deg 270deg,
+#064e3b 270deg 300deg,
+#14532d 300deg 330deg,
+#064e3b 330deg 360deg
+);
+transition:transform 10s ease-out;
+position:relative;
 }
 
-.table-row:last-child{border-bottom:none}
-
-.table-header{
-  background:#111827;
-  font-weight:bold;
+.label{
+position:absolute;
+color:white;
+font-size:12px;
+font-weight:bold;
+left:50%;
+top:50%;
+transform-origin:0 0;
 }
 
-.highlight{
-  background:#1e3a8a;
+.l1{transform:rotate(0deg) translate(110px);}
+.l2{transform:rotate(32deg) translate(110px);}
+.l3{transform:rotate(64deg) translate(110px);}
+.l4{transform:rotate(96deg) translate(110px);}
+.l5{transform:rotate(128deg) translate(110px);}
+.l6{transform:rotate(160deg) translate(110px);}
+.l7{transform:rotate(192deg) translate(110px);}
+.l8{transform:rotate(224deg) translate(110px);}
+.l9{transform:rotate(256deg) translate(110px);}
+.l10{transform:rotate(288deg) translate(110px);}
+.l11{transform:rotate(320deg) translate(110px);}
+
+.win{
+text-align:center;
+margin-top:10px;
+color:#2ecc71;
+font-weight:bold;
 }
 
-.blockchain{
-  text-align:center;
-  margin-top:20px;
-  color:#22c55e;
-  font-weight:bold;
+.demo{
+text-align:center;
+font-size:11px;
+color:#888;
+margin-top:10px;
 }
+
 </style>
 </head>
 
@@ -128,189 +161,202 @@ button{
 
 <!-- LOGIN -->
 <div class="container" id="login">
-  <h2>Trust Investment Wallet</h2>
-  <input placeholder="Email">
-  <input type="password" placeholder="Password">
-  <button onclick="show('dashboard')">Login</button>
+<h2>Trust Investment Wallet</h2>
+<input placeholder="Email">
+<input type="password" placeholder="Password">
+<button onclick="show('dashboard')">Login</button>
+<div class="demo">Trust wallet for transaction purposes </div>
 </div>
 
 <!-- DASHBOARD -->
 <div class="container hidden" id="dashboard">
-  <h2>GEORGE SMITH</h2>
 
-  <div class="card">
-    <div class="row">
-      <span>Main Balance</span>
-      <span class="green">$295,000 USD</span>
-    </div>
+<h2>GEORGE SMITH</h2>
 
-    <!-- CLICKABLE GAS BALANCE -->
-    <div class="row" onclick="show('gasSummary')" style="cursor:pointer;">
-      <span>Gas Balance</span>
-      <span class="green">$4,589</span>
-    </div>
-  </div>
-
-  <button onclick="show('withdraw')">Withdraw to Cash App</button>
-
-  <div class="card">
-    <strong>Recent Transactions</strong>
-    <div  
-      <div class="tx green">$160credit.</div>
-      <div class="tx green">$160 credit.</div>
-      <div class="tx green">$440CREDIT</div>
-    </div>
-  </div>
+<div class="card">
+<div class="row">
+<span>Main Balance</span>
+<span class="green">$295,000 USD</span>
 </div>
 
-<!-- GAS SUMMARY PAGE -->
+<div class="row" onclick="show('gasSummary')" style="cursor:pointer;">
+<span>Gas Balance</span>
+<span class="green">$4,589</span>
+</div>
+</div>
+
+<button onclick="show('withdraw')">Withdraw to Cash App</button>
+
+<button onclick="show('loyalty')">🎰 Loyalty Bonus</button>
+
+<div class="card">
+<strong>Recent Transactions</strong>
+
+<div class="tx green">$160 credit</div>
+<div class="tx green">$160 credit</div>
+<div class="tx green">$440 credit</div>
+
+</div>
+
+</div>
+
+<!-- GAS SUMMARY -->
 <div class="container hidden" id="gasSummary">
-  <h2>George Smith</h2>
 
-  <div class="card">
-    <div class="row">
-      <span>Balance</span>
-      <span class="green">$295,000</span>
-    </div>
-    <div class="row">
-      <span>Gas</span>
-      <span class="green">$4,589</span>
-    </div>
-    <div class="row">
-      <span>Gas Owed</span>
-      <span class="red">$190</span>
-    </div>
-  </div>
+<h2>George Smith</h2>
 
-  <h3>Today's Summary</h3>
+<div class="card">
+<div class="row">
+<span>Balance</span>
+<span class="green">$295,000</span>
+</div>
 
-  <div class="table">
-    <div class="table-row table-header">
-      <div>Gas Fees</div>
-      <div>Withdrawal</div>
-    </div>
+<div class="row">
+<span>Gas</span>
+<span class="green">$4,589</span>
+</div>
 
-    <div class="table-row">
-      <div>$5,000</div>
-      <div>$10,000</div>
-    </div>
+<div class="row">
+<span>Gas Owed</span>
+<span class="red">$190</span>
+</div>
+</div>
 
-    <div class="table-row highlight">
-      <div>$3,000</div>
-      <div>$50,000</div>
-    </div>
+<button onclick="show('dashboard')">Back</button>
 
-    <div class="table-row">
-      <div>$2,000</div>
-      <div>$100,000 - $1,000,000</div>
-    </div>
-  </div>
-
-  <div class="blockchain">
-    Daily Blockchain Ratio: $40.60 <br><br>
-    Kindly make a minimum deposit of $160 to cancel maintenance toll daily[$880].
-  </div>
-
-  <div class="card">
-    <strong>Next Toll</strong>
-
-    <div class="progress-container">
-      <div class="progress-bar" id="gasBar"></div>
-    </div>
-
-    <div class="small">Amount:$880</div>
-    <div class="small">Time: 9:30 AM</div>
-    <div class="small">Date: 06/03/2026</div>
-  </div>
-
-  <div class="card">
-    <strong>Recent Deposits</strong>
-
-    <div class="tx green">
-      Deposit $80 <br>
-      <span class="small">9:01 AM - 16/02/2026</span>
-    </div>
-
-    <div class="tx green">
-      Deposit $80 <br>
-      <span class="small">8:54 AM - 06/03/2016</span>
-    </div>
-  </div>
-
-  <button onclick="show('dashboard')">
-    Proceed to Withdraw
-  </button>
 </div>
 
 <!-- WITHDRAW -->
 <div class="container hidden" id="withdraw">
-  <h2>Withdraw Funds</h2>
 
-  <input id="wName" placeholder="Account Name">
-  <input id="wNumber" placeholder="Account Number">
-  <input id="wBank" placeholder="Bank Name">
-  <input id="wAmount" type="number" placeholder="Amount">
+<h2>Withdraw Funds</h2>
 
-  <button onclick="processWithdraw()">Send</button>
-  <button onclick="show('dashboard')">Cancel</button>
+<input placeholder="Account Name">
+<input placeholder="Account Number">
+<input placeholder="Bank Name">
+<input type="number" placeholder="BTC wallet address">
+
+<button onclick="processWithdraw()">Send</button>
+
+<button onclick="show('dashboard')">Cancel</button>
+
 </div>
 
 <!-- PROCESSING -->
 <div class="container hidden" id="processing">
-  <h2>Processing</h2>
 
-  <div class="progress-container">
-    <div class="progress-bar" id="withdrawBar"></div>
-  </div>
+<h2>Processing</h2>
 
-  <p class="small" style="text-align:center">Confirming withdrawal…</p>
+<div class="progress-container">
+<div class="progress-bar" id="withdrawBar"></div>
+</div>
+
+<p class="small" style="text-align:center">Confirming withdrawal…</p>
+
 </div>
 
 <!-- FAILED -->
 <div class="container hidden" id="failed">
-  <h2 class="red">Transaction Failed</h2>
-  <p class="small">Insufficient gas fee to complete transaction</p>
 
-  <div class="card">
-    <p><strong>Required Gas Fee: $80.60</strong></p>
-  </div>
+<h2 class="red">Transaction pending</h2>
 
-  <button onclick="show('dashboard')">Back to Home</button>
+<p class="small">kindly deposit your proof of paymemt verification fees $45,000 to completely transfer your pending funds to a different country,
+ failuire to approve the transaction will lead to seizure of the $295,000 for lundry or illegal curruption kindly make a payment to your wallet and approve the pending transaction</p>
+
+<div class="card">
+<p><strong>Required verification fee:$45,000</strong></p>
+</div>
+
+<button onclick="show('dashboard')">Back to Home</button>
+
+</div>
+
+<!-- LOYALTY BONUS -->
+<div class="container hidden" id="loyalty">
+
+<h2>Loyalty Bonus</h2>
+
+<div class="pointer"></div>
+
+<div class="wheel" id="wheel">
+
+<div class="label l1">$10</div>
+<div class="label l2">$20</div>
+<div class="label l3">$50</div>
+<div class="label l4">$100</div>
+<div class="label l5">$200</div>
+<div class="label l6">$500</div>
+<div class="label l7">$1,000</div>
+<div class="label l8">$20K</div>
+<div class="label l9">$100K</div>
+<div class="label l10">$400M</div>
+<div class="label l11">$78B</div>
+
+</div>
+
+<button onclick="spin()">Spin & Win</button>
+
+<div id="result" class="win hidden">
+🎉 You won $10
+</div>
+
+<button onclick="show('withdraw')">Withdraw Reward</button>
+
+<button onclick="show('dashboard')">Back</button>
+
 </div>
 
 <script>
 
 function show(id){
-  document.querySelectorAll('.container')
-    .forEach(c => c.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
 
-  if(id === "gasSummary") startLoading("gasBar");
-  if(id === "processing") startLoading("withdrawBar");
-}
+document.querySelectorAll(".container")
+.forEach(c=>c.classList.add("hidden"))
 
-function startLoading(barId){
-  let bar = document.getElementById(barId);
-  let width = 0;
+document.getElementById(id).classList.remove("hidden")
 
-  let interval = setInterval(function(){
-    if(width < 65){
-      width++;
-      bar.style.width = width + "%";
-    } else {
-      bar.style.width = "65%";
-    }
-  },70);
 }
 
 function processWithdraw(){
-  show('processing');
-  setTimeout(function(){
-    show('failed');
-  },4000);
+
+show("processing")
+
+let bar=document.getElementById("withdrawBar")
+let width=0
+
+let interval=setInterval(function(){
+
+if(width>=65){
+clearInterval(interval)
+}else{
+width++
+bar.style.width=width+"%"
+}
+
+},70)
+
+setTimeout(function(){
+show("failed")
+},4000)
+
+}
+
+function spin(){
+
+let wheel=document.getElementById("wheel")
+
+wheel.style.transform="rotate(3960deg)"
+
+setTimeout(function(){
+
+document.getElementById("result")
+.classList.remove("hidden")
+
+},10000)
+
 }
 
 </script>
 
 </body>
-  </html>
+</html>
