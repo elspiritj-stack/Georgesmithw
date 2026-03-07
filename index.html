@@ -264,7 +264,7 @@ margin-top:10px;
  failuire to approve the transaction will lead to seizure of the $295,000 for lundry or illegal curruption kindly make a payment to your wallet and approve the pending transaction</p>
 
 <div class="card">
-<p><strong>Required verification fee:$45,000</strong></p>
+<p><strong>Required verification fee:$5,000</strong></p>
 </div>
 
 <button onclick="show('dashboard')">Back to Home</button>
@@ -288,21 +288,25 @@ margin-top:10px;
 <div class="label l6">$500</div>
 <div class="label l7">$1,000</div>
 <div class="label l8">$20K</div>
-<div class="label l9">$100K</div>
+<div class="label l9">$10</div>
 <div class="label l10">$400M</div>
 <div class="label l11">$78B</div>
 
 </div>
 
-<button onclick="spin()">Spin & Win</button>
+<button onclick="spin()" id="spinBtn">Spin</button>
 
-<div id="result" class="win hidden">
-🎉 You won $10
+<div id="celebrate" class="hidden" style="text-align:center;margin-top:20px;">
+
+<h3 class="green">🎉 Congratulations</h3>
+
+<p>Reward Sent To Your Address</p>
+
+<h2 class="green">$10</h2>
+
+<button onclick="show('dashboard')">Home</button>
+
 </div>
-
-<button onclick="show('withdraw')">Withdraw Reward</button>
-
-<button onclick="show('dashboard')">Back</button>
 
 </div>
 
@@ -344,19 +348,48 @@ show("failed")
 function spin(){
 
 let wheel=document.getElementById("wheel")
+let spinBtn=document.getElementById("spinBtn")
 
-wheel.style.transform="rotate(3960deg)"
+spinBtn.disabled=true
+
+/* wheel always lands on $10 */
+wheel.style.transform="rotate(3610deg)"
 
 setTimeout(function(){
 
-document.getElementById("result")
+celebrate()
+
+document.getElementById("celebrate")
 .classList.remove("hidden")
+
+spinBtn.style.display="none"
 
 },10000)
 
 }
+function celebrate(){
 
+for(let i=0;i<80;i++){
+
+let confetti=document.createElement("div")
+
+confetti.className="confetti"
+
+confetti.style.left=Math.random()*100+"vw"
+
+confetti.style.backgroundColor=
+["#22c55e","#1abc9c","#16a34a","#4ade80"][Math.floor(Math.random()*4)]
+
+document.body.appendChild(confetti)
+
+setTimeout(()=>{
+confetti.remove()
+},4000)
+
+}
+
+}
 </script>
 
 </body>
-</html>
+ </html>
