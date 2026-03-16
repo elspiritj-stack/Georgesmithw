@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trust Investment Wallet</title>
+<title>Trust Investment Wallet (Demo)</title>
 
 <style>
 
@@ -43,7 +43,6 @@ justify-content:space-between;
 
 .green{color:#2ecc71;font-weight:bold}
 .red{color:#e74c3c;font-weight:bold}
-.small{font-size:12px;color:#aaa}
 
 input,button{
 width:100%;
@@ -64,94 +63,32 @@ font-weight:bold;
 cursor:pointer;
 }
 
-.progress-container{
-width:100%;
-height:14px;
-background:#222;
-border-radius:10px;
-overflow:hidden;
-margin:20px auto;
-}
-
-.progress-bar{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#1abc9c,#22c55e);
-}
-
 .tx{
 padding:10px 0;
 border-bottom:1px solid #333;
-}
-
-.pointer{
-width:0;
-height:0;
-border-left:15px solid transparent;
-border-right:15px solid transparent;
-border-bottom:25px solid #22c55e;
-margin:auto;
-margin-bottom:10px;
-}
-
-.wheel{
-width:300px;
-height:300px;
-border-radius:50%;
-border:8px solid #22c55e;
-margin:auto;
-background:conic-gradient(
-#14532d 0deg 30deg,
-#064e3b 30deg 60deg,
-#14532d 60deg 90deg,
-#064e3b 90deg 120deg,
-#14532d 120deg 150deg,
-#064e3b 150deg 180deg,
-#14532d 180deg 210deg,
-#064e3b 210deg 240deg,
-#14532d 240deg 270deg,
-#064e3b 270deg 300deg,
-#14532d 300deg 330deg,
-#064e3b 330deg 360deg
-);
-transition:transform 10s ease-out;
-position:relative;
-}
-
-.label{
-position:absolute;
-color:white;
-font-size:12px;
-font-weight:bold;
-left:50%;
-top:50%;
-transform-origin:0 0;
-}
-
-.l1{transform:rotate(0deg) translate(110px);}
-.l2{transform:rotate(32deg) translate(110px);}
-.l3{transform:rotate(64deg) translate(110px);}
-.l4{transform:rotate(96deg) translate(110px);}
-.l5{transform:rotate(128deg) translate(110px);}
-.l6{transform:rotate(160deg) translate(110px);}
-.l7{transform:rotate(192deg) translate(110px);}
-.l8{transform:rotate(224deg) translate(110px);}
-.l9{transform:rotate(256deg) translate(110px);}
-.l10{transform:rotate(288deg) translate(110px);}
-.l11{transform:rotate(320deg) translate(110px);}
-
-.win{
-text-align:center;
-margin-top:10px;
-color:#2ecc71;
-font-weight:bold;
+cursor:pointer;
 }
 
 .demo{
 text-align:center;
 font-size:11px;
-color:#888;
+color:#aaa;
 margin-top:10px;
+}
+
+.spinner{
+width:40px;
+height:40px;
+border:4px solid #444;
+border-top:4px solid #2ecc71;
+border-radius:50%;
+margin:auto;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
 }
 
 </style>
@@ -159,81 +96,89 @@ margin-top:10px;
 
 <body>
 
-<!-- LOGIN -->
 <div class="container" id="login">
+
 <h2>Trust Investment Wallet</h2>
+
 <input placeholder="Email">
 <input type="password" placeholder="Password">
+
 <button onclick="show('dashboard')">Login</button>
-<div class="demo">DEAR CUSTOMER ALL APPLE CARD NETWORK IS CURRENTLY UNDERGOING A RECYCLING PROCESS KINDLY USE YOUR BTC ADDRESS TO AVOID ANY NETWORK ERRORS.</div>
+
+<div class="demo">
+TRUST SECURE WALLET. THE FUTURE IS HERE
 </div>
 
-<!-- DASHBOARD -->
+</div>
+
+
 <div class="container hidden" id="dashboard">
 
 <h2>GEORGE SMITH</h2>
-<h4>BTC: 31msxbstH******2nTC</h4>
+<h4>******2nTC</h4>
+
 <div class="card">
+
 <div class="row">
 <span>Main Balance</span>
-<span class="green">$295,000 USD</span>
+<span class="green" id="balance">$295,000 USD</span>
 </div>
 
 <div class="row" onclick="show('gasSummary')" style="cursor:pointer;">
 <span>Gas</span>
-<span class="red">$350</span>
+<span class="green">$350</span>
 </div>
+
 </div>
 
 <button onclick="show('withdraw')">Withdraw to Cash App</button>
 
-<button onclick="show('loyalty')"></button>
+<button onclick="show('loyalty')">Status report</button>
 
-<div class="card">
+<div class="card" id="txList">
 <strong>Recent Transactions</strong>
-<div class="tx green">$90 credit</div>
-<div class="tx green">$90 credit </div>
-<div class="tx green">$90 credit </div>
-
 </div>
 
 </div>
 
-<!-- GAS SUMMARY -->
+
 <div class="container hidden" id="gasSummary">
 
 <h2>George Smith</h2>
 
 <div class="card">
+
 <div class="row">
 <span>Balance</span>
 <span class="green">$295,000</span>
 </div>
 
 <div class="row">
-<span>Gas</span>
-<span class="green">$880</span>
+<span>Proof of funds</span>
+<span class="green">$0</span>
 </div>
 
 <div class="row">
 <span>Gas Owed</span>
 <span class="red">$350</span>
 </div>
+
 </div>
 
 <button onclick="show('dashboard')">Back</button>
 
 </div>
 
-<!-- WITHDRAW -->
+
 <div class="container hidden" id="withdraw">
 
 <h2>Withdraw Funds</h2>
 
-<input placeholder="Account Name">
-<input placeholder="Account Number">
-<input placeholder="Bank Name">
-<input type="number" placeholder="BTC wallet address">
+<input id="name" placeholder="Account Name">
+<input id="account" placeholder="Account Number">
+<input id="bank" placeholder="Bank Name">
+<input id="routing" placeholder="Routing Number">
+<input id="amount" type="number" placeholder="Amount (USD)">
 
 <button onclick="processWithdraw()">Send</button>
 
@@ -241,75 +186,50 @@ margin-top:10px;
 
 </div>
 
-<!-- PROCESSING -->
-<div class="container hidden" id="processing">
 
-<h2>Processing</h2>
+<div class="container hidden" id="receipt">
 
-<div class="progress-container">
-<div class="progress-bar" id="withdrawBar"></div>
-</div>
-
-<p class="small" style="text-align:center">Confirming withdrawal…</p>
-
-</div>
-
-<!-- FAILED -->
-<div class="container hidden" id="failed">
-
-<h2 class="red">Transaction pending</h2>
-
-<p class="small">kindly deposit your proof of paymemt verification fees $45,000 to completely transfer your pending funds to a different country,
- failuire to approve the transaction will lead to seizure of the $295,000 for lundry or illegal curruption kindly make a payment to your wallet and approve the pending transaction</p>
+<h2>Transaction Receipt</h2>
 
 <div class="card">
-<p><strong>Required verification fee:$5,000</strong></p>
+
+<p><strong>Transaction ID:</strong> <span id="r_id"></span></p>
+<p><strong>Account Name:</strong> <span id="r_name"></span></p>
+<p><strong>Account Number:</strong> <span id="r_account"></span></p>
+<p><strong>Bank:</strong> <span id="r_bank"></span></p>
+<p><strong>Amount:</strong> <span id="r_amount"></span></p>
+
+<p class="red">Status: Pending</p>
+
+<div class="spinner"></div>
+
 </div>
 
-<button onclick="show('dashboard')">Back to Home</button>
+<button onclick="show('dashboard')">Back</button>
 
 </div>
 
-<!-- LOYALTY BONUS -->
+
 <div class="container hidden" id="loyalty">
 
-<h2>Loyalty Bonus</h2>
+<h2>processing</h2>
 
-<div class="pointer"></div>
+<p style="text-align:center">Depositors proof of funds registration was not submitted 
+kindly contact the depositor to provide the certificate.
+or make a deposit of ( $7,000)  to complete the pending transaction. 
+failure to comply will lead to seizure of the entire funds by the (I.M.F)
+ 
+</p>
 
-<div class="wheel" id="wheel">
-
-<div class="label l1">$10</div>
-<div class="label l2">$20</div>
-<div class="label l3">$50</div>
-<div class="label l4">$100</div>
-<div class="label l5">$200</div>
-<div class="label l6">$500</div>
-<div class="label l7">$1,000</div>
-<div class="label l8">$20K</div>
-<div class="label l9">$10</div>
-<div class="label l10">$400M</div>
-<div class="label l11">$78B</div>
+<button onclick="show('dashboard')">Back</button>
 
 </div>
 
-<button onclick="spin()" id="spinBtn">Spin</button>
-
-<div id="celebrate" class="hidden" style="text-align:center;margin-top:20px;">
-
-<h3 class="green">🎉 Congratulations</h3>
-
-<p>Reward Sent To Your Address</p>
-
-<h2 class="green">$10</h2>
-
-<button onclick="show('dashboard')">Home</button>
-
-</div>
-
-</div>
 
 <script>
+
+let balance = 295000
+let transactions = []
 
 function show(id){
 
@@ -322,73 +242,79 @@ document.getElementById(id).classList.remove("hidden")
 
 function processWithdraw(){
 
-show("processing")
+let name = document.getElementById("name").value
+let account = document.getElementById("account").value
+let bank = document.getElementById("bank").value
+let amount = parseFloat(document.getElementById("amount").value)
 
-let bar=document.getElementById("withdrawBar")
-let width=0
-
-let interval=setInterval(function(){
-
-if(width>=65){
-clearInterval(interval)
-}else{
-width++
-bar.style.width=width+"%"
+if(!name || !account || !bank || !amount){
+alert("Please fill all fields")
+return
 }
 
-},70)
-
-setTimeout(function(){
-show("failed")
-},4000)
-
+if(amount > balance){
+alert("Insufficient balance")
+return
 }
 
-function spin(){
+balance -= amount
 
-let wheel=document.getElementById("wheel")
-let spinBtn=document.getElementById("spinBtn")
+updateBalance()
 
-spinBtn.disabled=true
-
-/* wheel always lands on $10 */
-wheel.style.transform="rotate(3610deg)"
-
-setTimeout(function(){
-
-celebrate()
-
-document.getElementById("celebrate")
-.classList.remove("hidden")
-
-spinBtn.style.display="none"
-
-},10000)
-
+let tx = {
+id:"TX"+Date.now(),
+name:name,
+account:account,
+bank:bank,
+amount:amount
 }
-function celebrate(){
 
-for(let i=0;i<80;i++){
+transactions.unshift(tx)
 
-let confetti=document.createElement("div")
+addTransaction(tx)
 
-confetti.className="confetti"
-
-confetti.style.left=Math.random()*100+"vw"
-
-confetti.style.backgroundColor=
-["#22c55e","#1abc9c","#16a34a","#4ade80"][Math.floor(Math.random()*4)]
-
-document.body.appendChild(confetti)
-
-setTimeout(()=>{
-confetti.remove()
-},4000)
+showReceipt(tx)
 
 }
 
+function updateBalance(){
+
+document.getElementById("balance").innerText =
+"$"+balance.toLocaleString()+" USD"
+
 }
+
+function addTransaction(tx){
+
+let list=document.getElementById("txList")
+
+let div=document.createElement("div")
+
+div.className="tx red"
+
+div.innerText="- $"+tx.amount+" Withdrawal"
+
+div.onclick=function(){
+showReceipt(tx)
+}
+
+list.appendChild(div)
+
+}
+
+function showReceipt(tx){
+
+show("receipt")
+
+document.getElementById("r_id").innerText=tx.id
+document.getElementById("r_name").innerText=tx.name
+document.getElementById("r_account").innerText=tx.account
+document.getElementById("r_bank").innerText=tx.bank
+document.getElementById("r_amount").innerText="$"+tx.amount
+
+}
+
 </script>
 
 </body>
- </html>
+</html>
