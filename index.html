@@ -3,314 +3,295 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trust Investment Wallet (Demo)</title>
+<title>Educational Wallet</title>
 
 <style>
+*{box-sizing:border-box}
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-color:#fff;
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  color:#fff;
 }
 
+/* MOBILE FIT */
 .container{
-width:90%;
-max-width:420px;
-background:#111;
-padding:20px;
-border-radius:14px;
-box-shadow:0 10px 40px rgba(0,0,0,.6);
+  width:95%;
+  max-width:400px;
+  background:#111;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 0 40px rgba(0,255,200,.2);
+}
+
+/* LOGIN ROLL */
+.login-animate{
+  animation:loginRoll 0.7s ease;
+}
+@keyframes loginRoll{
+  from{transform:translateY(50px) rotate(5deg);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+/* DASHBOARD GLOW */
+.glow{
+  animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+  from{box-shadow:0 0 10px #1abc9c}
+  to{box-shadow:0 0 30px #1abc9c}
+}
+
+/* GAS GLOW */
+.gas-glow{
+  animation:gasGlow 1s infinite alternate;
+}
+@keyframes gasGlow{
+  from{text-shadow:0 0 5px #2ecc71}
+  to{text-shadow:0 0 15px #2ecc71,0 0 25px #2ecc71}
+}
+
+/* FLOATING DASHBOARD EFFECT */
+.float{
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+  100%{transform:translateY(0)}
 }
 
 .hidden{display:none}
 
 .card{
-background:#1e1e1e;
-padding:14px;
-border-radius:10px;
-margin-bottom:14px;
+  background:#1e1e1e;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:12px;
 }
 
 .row{
-display:flex;
-justify-content:space-between;
+  display:flex;
+  justify-content:space-between;
 }
 
-.green{color:#2ecc71;font-weight:bold}
-.red{color:#e74c3c;font-weight:bold}
+.green{color:#2ecc71}
+.red{color:#e74c3c}
 
 input,button{
-width:100%;
-padding:12px;
-margin-top:8px;
-border:none;
-border-radius:8px;
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border:none;
+  border-radius:10px;
 }
 
 input{
-background:#222;
-color:#fff;
+  background:#222;
+  color:#fff;
 }
 
 button{
-background:#1abc9c;
-font-weight:bold;
-cursor:pointer;
+  background:#1abc9c;
+  font-weight:bold;
+}
+
+/* CLICK ROLL */
+button:active{
+  transform:scale(.95) rotate(3deg);
+}
+
+/* PAGE TRANSITION */
+.roll{
+  animation:pageRoll .5s ease;
+}
+@keyframes pageRoll{
+  from{transform:translateX(100%);opacity:0}
+  to{transform:translateX(0);opacity:1}
+}
+
+/* TICKER */
+.ticker{
+  overflow:hidden;
+  white-space:nowrap;
+}
+.ticker span{
+  display:inline-block;
+  padding-left:100%;
+  animation:ticker 12s linear infinite;
+}
+@keyframes ticker{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-100%)}
+}
+
+/* PROGRESS */
+.progress{
+  height:10px;
+  background:#333;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.bar{
+  height:100%;
+  width:0%;
+  background:#1abc9c;
+  transition:.5s;
+}
+
+.status{
+  font-size:12px;
+  color:#aaa;
+  margin-top:8px;
 }
 
 .tx{
-padding:10px 0;
-border-bottom:1px solid #333;
-cursor:pointer;
+  padding:10px 0;
+  border-bottom:1px solid #333;
+  cursor:pointer;
 }
-
-.demo{
-text-align:center;
-font-size:11px;
-color:#aaa;
-margin-top:10px;
-}
-
-.spinner{
-width:40px;
-height:40px;
-border:4px solid #444;
-border-top:4px solid #2ecc71;
-border-radius:50%;
-margin:auto;
-animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-0%{transform:rotate(0deg);}
-100%{transform:rotate(360deg);}
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="container" id="login">
-
-<h2>Trust Investment Wallet</h2>
-
+<!-- LOGIN -->
+<div class="container login-animate" id="login">
+<h2>TRUST INVESTMENT Wallet</h2>
 <input placeholder="Email">
 <input type="password" placeholder="Password">
-
-<button onclick="show('dashboard')">Login</button>
-
-<div class="demo">
-TRUST SECURE WALLET. THE FUTURE IS HERE
+<button onclick="go('dashboard')">Login</button>
 </div>
 
-</div>
-
-
-<div class="container hidden" id="dashboard">
-
+<!-- DASHBOARD -->
+<div class="container hidden glow float" id="dashboard">
 <h2>GEORGE SMITH</h2>
-<h4>******2nTC</h4>
 
 <div class="card">
-
 <div class="row">
 <span>Main Balance</span>
-<span class="green" id="balance">$294,120 USD</span>
+<span id="mainBal" class="green">$295,000</span>
 </div>
 
-<div class="row" onclick="show('gasSummary')" style="cursor:pointer;">
-<span>Gas</span>
-<span class="red">$210</span>
+<div class="row">
+<span>Gas Balance</span>
+<span id="gasBal" class="green gas-glow" onclick="gasClick()">$230</span>
+</div>
 </div>
 
+<!-- MOVING TICKER -->
+<div class="card ticker">
+<span>
+Next Toll: $90• Time: 09:30 - 10:32 • Data: 0.03 ETH • Next Toll: $880 • Time: 09:45-9:39 • Data: 0.05 ETH
+</span>
 </div>
 
-<button onclick="show('withdraw')">Withdraw </button>
-
-<button onclick="show('loyalty')">Account activated</button>
-
-<div class="card" id="txList">
-<strong>Recent Transactions</strong>
-</div>
-
-</div>
-
-
-<div class="container hidden" id="gasSummary">
-
-<h2>George Smith</h2>
+<button onclick="go('withdraw')">Withdraw</button>
 
 <div class="card">
-
-<div class="row">
-<span>Balance</span>
-<span class="green">$294,120</span>
+<strong>Transactions</strong>
+<div id="txList">
+<div class="tx" onclick="viewTx('$90 CREDIT')">+$90 CREDIT 03/29/2026</div>
+<div class="tx" onclick="viewTx('-$90 CREDIT')">+$90 CREDIT 03/28/2026</div>
+</div>
+</div>
 </div>
 
-<div class="row">
-<span>Proof of funds</span>
-<span class="green">Verified</span>
-</div>
-
-<div class="row">
-<span>Gas Owed</span>
-<span class="red">$210</span>
-</div>
-
-</div>
-
-<button onclick="show('dashboard')">Back</button>
-
-</div>
-
-
+<!-- WITHDRAW -->
 <div class="container hidden" id="withdraw">
-
-<h2>Withdraw Funds</h2>
-
-<input id="name" placeholder="Account Name">
-<input id="account" placeholder="Account Number">
-<input id="bank" placeholder="Bank Name">
-<input id="routing" placeholder="Routing Number">
-<input id="amount" type="number" placeholder="Amount (USD)">
-
-<button onclick="processWithdraw()">Send</button>
-
-<button onclick="show('dashboard')">Cancel</button>
-
+<h2>Withdraw</h2>
+<input id="wAmount" placeholder="Amount">
+<button onclick="startBlockchain()">Send</button>
+<button onclick="go('dashboard')">Cancel</button>
 </div>
 
+<!-- BLOCKCHAIN -->
+<div class="container hidden" id="blockchain">
+<h2>Blockchain Confirmation</h2>
 
-<div class="container hidden" id="receipt">
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
 
-<h2>Transaction Receipt</h2>
+<div class="status" id="status">Initializing...</div>
+</div>
 
+<!-- DETAILS -->
+<div class="container hidden" id="details">
+<h2 id="dTitle"></h2>
 <div class="card">
-
-<p><strong>Transaction ID:</strong> <span id="r_id"></span></p>
-<p><strong>Account Name:</strong> <span id="r_name"></span></p>
-<p><strong>Account Number:</strong> <span id="r_account"></span></p>
-<p><strong>Bank:</strong> <span id="r_bank"></span></p>
-<p><strong>Amount:</strong> <span id="r_amount"></span></p>
-
-<p class="green">Account activation successful</p>
-
-<div class="spinner"></div>
-
+<p id="dContent"></p>
 </div>
-
-<button onclick="show('dashboard')">Back</button>
-
+<button onclick="go('dashboard')">Back</button>
 </div>
-
-
-<div class="container hidden" id="loyalty">
-
-<h2>processing</h2>
-
-<p style="text-align:center"> Your account verification was successful you can start withdrawals.
- 
-</p>
-
-<button onclick="show('dashboard')">Back</button>
-
-</div>
-
 
 <script>
-
-let balance = 295000
-let transactions = []
-
-function show(id){
-
-document.querySelectorAll(".container")
-.forEach(c=>c.classList.add("hidden"))
-
-document.getElementById(id).classList.remove("hidden")
-
+function go(id){
+document.querySelectorAll('.container').forEach(c=>c.classList.add('hidden'));
+const page=document.getElementById(id);
+page.classList.remove('hidden');
+page.classList.add('roll');
+setTimeout(()=>page.classList.remove('roll'),500);
 }
 
-function processWithdraw(){
-
-let name = document.getElementById("name").value
-let account = document.getElementById("account").value
-let bank = document.getElementById("bank").value
-let amount = parseFloat(document.getElementById("amount").value)
-
-if(!name || !account || !bank || !amount){
-alert("Please fill all fields")
-return
+/* GAS */
+function gasClick(){
+openDetails("Gas System",
+"Next Toll: $880\nTime: 09:30\nData: 0.03 ETH");
 }
 
-if(amount > balance){
-alert("Insufficient balance")
-return
+/* TX */
+function viewTx(data){
+openDetails("Transaction", data + "\nStatus: Completed");
 }
 
-balance -= amount
-
-updateBalance()
-
-let tx = {
-id:"TX"+Date.now(),
-name:name,
-account:account,
-bank:bank,
-amount:amount
+/* DETAILS */
+function openDetails(title,content){
+document.getElementById('dTitle').innerText=title;
+document.getElementById('dContent').innerText=content;
+go('details');
 }
 
-transactions.unshift(tx)
+/* BLOCKCHAIN */
+function startBlockchain(){
+go('blockchain');
 
-addTransaction(tx)
+let progress=0;
+const bar=document.getElementById('bar');
+const status=document.getElementById('status');
 
-showReceipt(tx)
+const stages=[
+"Connecting...",
+"Broadcasting...",
+"Verifying...",
+"Confirming...",
+"Completed"
+];
 
+let i=0;
+
+const interval=setInterval(()=>{
+progress+=20;
+bar.style.width=progress+"%";
+status.innerText=stages[i];
+i++;
+
+if(progress>=100){
+clearInterval(interval);
+setTimeout(()=>{
+mainBal.innerText="$0.00";
+go('dashboard');
+},800);
 }
 
-function updateBalance(){
-
-document.getElementById("balance").innerText =
-"$"+balance.toLocaleString()+" USD"
-
+},900);
 }
-
-function addTransaction(tx){
-
-let list=document.getElementById("txList")
-
-let div=document.createElement("div")
-
-div.className="tx red"
-
-div.innerText="- $"+tx.amount+" Withdrawal"
-
-div.onclick=function(){
-showReceipt(tx)
-}
-
-list.appendChild(div)
-
-}
-
-function showReceipt(tx){
-
-show("receipt")
-
-document.getElementById("r_id").innerText=tx.id
-document.getElementById("r_name").innerText=tx.name
-document.getElementById("r_account").innerText=tx.account
-document.getElementById("r_bank").innerText=tx.bank
-document.getElementById("r_amount").innerText="$"+tx.amount
-
-}
-
 </script>
 
 </body>
